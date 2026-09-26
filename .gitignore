@@ -1,0 +1,12 @@
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+build/
+official/
+*.onnx
+*.onnx.data
+*.safetensors
+*.npz
+*.validation.json
+*.audio-validation.json
