@@ -70,10 +70,10 @@ python tools/verify_qwen3_forced_aligner_onnx.py --model build/official --onnx b
 
 ## 下载已导出的模型
 
-在 [最新 Release](https://github.com/nihaina/Qwen3-ForcedAligner-0.6B-onnx/releases/latest) 下载 `forced_aligner.onnx`、四个 `forced_aligner.onnx.data.partNN` 文件和 `SHA256SUMS.txt`，放在同一目录，然后执行：
+在 [最新 Release](https://github.com/nihaina/Qwen3-ForcedAligner-0.6B-onnx/releases/latest) 下载全部 `forced_aligner-onnx-fp32.7z.001` 等分卷及 `SHA256SUMS.txt`，放在同一目录。安装 7-Zip 后，从第一卷解压：
 
 ```text
-python tools/assemble_model.py --directory path/to/downloaded-assets
+7z x forced_aligner-onnx-fp32.7z.001
 ```
 
-脚本会检查模型图、每个分片和合并后权重的 SHA-256，生成 `forced_aligner.onnx.data`。推理时请将它与 `forced_aligner.onnx` 放在同一目录，保持文件名不变。权重拆分是因为单个文件超过 GitHub Release 的附件大小限制。
+也可在 Windows 中用 7-Zip 打开 `.001` 文件并解压。压缩包内含 `forced_aligner.onnx` 和 `forced_aligner.onnx.data`；推理时请将两者放在同一目录，保持文件名不变。`SHA256SUMS.txt` 列出了各分卷及解压后文件的校验值。分卷大小低于 GitHub Release 的单附件限制。
