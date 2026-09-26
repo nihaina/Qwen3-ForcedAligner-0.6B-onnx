@@ -67,3 +67,13 @@ python tools/verify_qwen3_forced_aligner_onnx.py --model build/official --onnx b
 参考验证使用了官方 4.204 秒中文样例：官方模型与导出包装层 logits 完全一致，ONNX 最大绝对误差约 `1.05e-5`，26 个时间戳类别均一致，解析出 13 个逐字时间段。该结果仅覆盖所用样例；脚本采用 FP32/eager 后端，未对 FlashAttention 2、量化模型或所有语言与长音频做等价性验证。
 
 脚本来自 [SubtitleEditforAndroid](https://github.com/nihaina/SubtitleEditforAndroid) 的 Qwen3 强制对齐导出实现。
+
+## 下载已导出的模型
+
+在 [最新 Release](https://github.com/nihaina/Qwen3-ForcedAligner-0.6B-onnx/releases/latest) 下载 `forced_aligner.onnx`、四个 `forced_aligner.onnx.data.partNN` 文件和 `SHA256SUMS.txt`，放在同一目录，然后执行：
+
+```text
+python tools/assemble_model.py --directory path/to/downloaded-assets
+```
+
+脚本会检查模型图、每个分片和合并后权重的 SHA-256，生成 `forced_aligner.onnx.data`。推理时请将它与 `forced_aligner.onnx` 放在同一目录，保持文件名不变。权重拆分是因为单个文件超过 GitHub Release 的附件大小限制。
